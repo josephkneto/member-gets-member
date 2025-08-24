@@ -12,78 +12,82 @@ app.use(express.json());
 app.post('/insights', async (req, res) => {
   try {
     const { question = '' } = req.body;
-    
+
     if (!question.trim()) {
       return res.status(400).json({
         error: 'Pergunta é obrigatória'
       });
     }
 
-    // Simular dados de KPIs (em produção, você conectaria ao seu banco)
-    const mockKpis = {
-      referralFunnel: {
-        clicked: 25,
-        installed: 18,
-        registered: 12,
-        converted: 8,
-        conversionRate: 0.32,
-        windowDays: 7
-      },
-      topReferrers: [
-        { userId: 'user1', totalConverted: 5 },
-        { userId: 'user2', totalConverted: 3 },
-        { userId: 'user3', totalConverted: 2 }
-      ],
-      rewardsSummary: { totalPoints: 450 }
-    };
-
-    const mockCharts = [
-      {
-        id: 'funnelByDay',
-        series: [
-          { date: '2025-01-20', clicked: 8, installed: 6, registered: 4, converted: 3 },
-          { date: '2025-01-21', clicked: 6, installed: 4, registered: 3, converted: 2 },
-          { date: '2025-01-22', clicked: 11, installed: 8, registered: 5, converted: 3 }
-        ]
-      }
-    ];
-
-    // Gerar resposta baseada na pergunta
-    let answer = '';
+    // TODO: Em produção, conectar ao banco de dados real
+    // Por enquanto, retornar mensagem informativa
     const questionLower = question.toLowerCase();
-    
+
+    let answer = '';
+    let kpis = {};
+    let charts = [];
+
     if (questionLower.includes('conversão') || questionLower.includes('conversoes')) {
-      answer = `📊 **Resumo dos últimos ${mockKpis.referralFunnel.windowDays} dias:**\n\n` +
-               `• **Clicados:** ${mockKpis.referralFunnel.clicked} pessoas\n` +
-               `• **Registrados:** ${mockKpis.referralFunnel.registered} pessoas\n` +
-               `• **Convertidos:** ${mockKpis.referralFunnel.converted} pessoas\n` +
-               `• **Taxa de Conversão:** ${(mockKpis.referralFunnel.conversionRate * 100).toFixed(1)}%\n\n` +
-               `🎯 **Análise:** Sua taxa de conversão está ${mockKpis.referralFunnel.conversionRate > 0.3 ? 'acima da média' : 'na média'} do setor. ` +
-               `Foque em melhorar a experiência pós-clique para aumentar conversões.`;
+      answer = `📊 **Análise de Conversão:**\n\n` +
+               `• **Status:** Nenhum dado de conversão disponível ainda\n` +
+               `• **Período:** Últimos 7 dias\n\n` +
+               `🎯 **Recomendação:** Comece compartilhando seus links de referência para gerar dados de conversão. ` +
+               `Cada pessoa que usar seu link será rastreada e você poderá ver métricas reais.`;
     } else if (questionLower.includes('pontos') || questionLower.includes('recompensas')) {
-      answer = `💰 **Resumo de Recompensas:**\n\n` +
-               `• **Total de Pontos:** ${mockKpis.rewardsSummary.totalPoints} pts\n` +
-               `• **Período:** Últimos ${mockKpis.referralFunnel.windowDays} dias\n\n` +
-               `🏆 **Dica:** Continue compartilhando seus links! Cada conversão vale pontos extras.`;
+      answer = `💰 **Análise de Recompensas:**\n\n` +
+               `• **Status:** Nenhum ponto acumulado ainda\n` +
+               `• **Período:** Últimos 7 dias\n\n` +
+               `🏆 **Como ganhar pontos:**\n` +
+               `1. Compartilhe seu link de referência\n` +
+               `2. Quando alguém usar seu link, você ganha pontos\n` +
+               `3. Cada conversão vale pontos extras\n\n` +
+               `💡 **Dica:** Comece compartilhando agora mesmo!`;
     } else if (questionLower.includes('top') || questionLower.includes('melhores')) {
-      answer = `🏅 **Top Referenciadores:**\n\n` +
-               `1. **User1:** ${mockKpis.topReferrers[0].totalConverted} conversões\n` +
-               `2. **User2:** ${mockKpis.topReferrers[1].totalConverted} conversões\n` +
-               `3. **User3:** ${mockKpis.topReferrers[2].totalConverted} conversões\n\n` +
-               `💡 **Estratégia:** Analise o que esses usuários fazem de diferente e replique!`;
+      answer = `🏅 **Análise de Performance:**\n\n` +
+               `• **Status:** Nenhum dado de performance disponível ainda\n` +
+               `• **Período:** Últimos 7 dias\n\n` +
+               `🚀 **Para aparecer no ranking:**\n` +
+               `1. Compartilhe seus links de referência\n` +
+               `2. Ajude outras pessoas a se registrarem\n` +
+               `3. Monitore suas métricas no dashboard\n\n` +
+               `💪 **Seja o primeiro a aparecer no topo!**`;
+    } else if (questionLower.includes('desempenho') || questionLower.includes('semana')) {
+      answer = `📈 **Análise de Desempenho Semanal:**\n\n` +
+               `• **Status:** Nenhum dado de desempenho disponível ainda\n` +
+               `• **Período:** Últimos 7 dias\n\n` +
+               `📊 **Métricas que você verá:**\n` +
+               `• Número de cliques nos seus links\n` +
+               `• Pessoas que se registraram\n` +
+               `• Taxa de conversão\n` +
+               `• Pontos acumulados\n\n` +
+               `🎯 **Para começar:** Vá ao dashboard e clique em "Compartilhar" para gerar seu primeiro link!`;
     } else {
       answer = `🤔 **Análise Geral:**\n\n` +
                `Com base na sua pergunta "${question}", aqui estão os insights:\n\n` +
-               `• **Funil de Conversão:** ${mockKpis.referralFunnel.clicked} → ${mockKpis.referralFunnel.converted} (${(mockKpis.referralFunnel.conversionRate * 100).toFixed(1)}%)\n` +
-               `• **Pontos Acumulados:** ${mockKpis.rewardsSummary.totalPoints}\n` +
-               `• **Período:** Últimos ${mockKpis.referralFunnel.windowDays} dias\n\n` +
-               `📈 **Recomendação:** Foque em melhorar a qualidade dos leads para aumentar a taxa de conversão.`;
+               `• **Status:** Nenhum dado disponível ainda\n` +
+               `• **Período:** Últimos 7 dias\n\n` +
+               `🚀 **Para gerar insights reais:**\n` +
+               `1. Compartilhe seus links de referência\n` +
+               `2. Monitore as métricas no dashboard\n` +
+               `3. Faça perguntas específicas sobre conversões, pontos ou performance\n\n` +
+               `💡 **Dica:** Quanto mais você usar o app, mais insights personalizados poderemos gerar!`;
     }
 
     res.json({
       answer,
-      kpis: mockKpis,
-      charts: mockCharts
+      kpis: {
+        referralFunnel: {
+          clicked: 0,
+          installed: 0,
+          registered: 0,
+          converted: 0,
+          conversionRate: 0,
+          windowDays: 7
+        },
+        topReferrers: [],
+        rewardsSummary: { totalPoints: 0 }
+      },
+      charts: []
     });
 
   } catch (error) {
