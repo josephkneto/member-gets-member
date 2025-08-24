@@ -1,36 +1,46 @@
 {
   "project_info": {
-    "project_number": "123456789012",
-    "project_id": "mgm-app-demo",
-    "storage_bucket": "mgm-app-demo.appspot.com"
+    "project_number": "1010876859644",
+    "firebase_url": "https://member-gets-member-default-rtdb.firebaseio.com",
+    "project_id": "member-gets-member",
+    "storage_bucket": "member-gets-member.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123456789012:android:abcdef1234567890abcdef",
+        "mobilesdk_app_id": "1:1010876859644:android:f0e7be33a7a19bf3048379",
         "android_client_info": {
-          "package_name": "com.example.mgm_app"
+          "package_name": "com.example.app"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "123456789012-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDemoKeyForTestingPurposes123456789012345"
+          "current_key": "AIzaSyAY_6PQatHcYdtFnw2okUgDsaxbVT-M7uo"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "123456789012-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010876859644:android:bf02479fa47c281d048379",
+        "android_client_info": {
+          "package_name": "com.example.mgm_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_6PQatHcYdtFnw2okUgDsaxbVT-M7uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }
