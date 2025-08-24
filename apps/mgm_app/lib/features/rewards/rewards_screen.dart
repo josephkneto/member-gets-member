@@ -2,13 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../auth/auth_providers.dart';
 
-class RewardsScreen extends StatelessWidget {
+class RewardsScreen extends ConsumerWidget {
   const RewardsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
+  Widget build(BuildContext context, WidgetRef ref) {
+    String? uid;
+    if (kIsWeb) {
+      uid = ref.watch(mockAuthStateProvider)?.uid;
+    } else {
+      uid = FirebaseAuth.instance.currentUser?.uid;
+    }
     if (uid == null) {
       return const Scaffold(body: Center(child: Text('Nao autenticado')));
     }

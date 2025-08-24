@@ -1,16 +1,26 @@
 # mgm_app
 
-A new Flutter project.
+Member-Get-Member Flutter app.
 
-## Getting Started
+## Executar
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run -d chrome --web-port 3000
+```
 
-A few resources to get you started if this is your first Flutter project:
+### Firebase (Web) via .env (opcional para desenvolvimento)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Crie `apps/mgm_app/.env` com as variáveis:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+FIREBASE_API_KEY=YOUR_API_KEY
+FIREBASE_AUTH_DOMAIN=your-app.firebaseapp.com
+FIREBASE_PROJECT_ID=your-app
+FIREBASE_STORAGE_BUCKET=your-app.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=000000000000
+FIREBASE_APP_ID=1:000000000000:web:abcdef123456
+INSIGHTS_FUNCTION_REGION=us-central1
+```
+
+No Android/iOS use os arquivos nativos (`google-services.json` e `GoogleService-Info.plist`).
